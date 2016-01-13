@@ -5,6 +5,8 @@ import os
 
 
 def lang_assign():
+    '''create dictionary for looking up the family of every given native language'''
+
     euro = ['english', 'spanish', 'french', 'portuguese', 'russian', 'dutch', 'german', 'polish', 'italian', 'macedonian', 'swedish', 'romanian', 'serbian', 'bulgarian']
     indo = ['persian', 'hindi', 'urdu', 'bengali', 'nepali', 'kurdish', 'punjabi', 'pashto', 'gujarati', 'dari', 'sinhalese']
     sino = ['cantonese', 'gan', 'hainanese', 'hakka', 'mandarin', 'naxi', 'taiwanese', 'teochew', 'wu', 'xiang', 'burmese', 'tibetan']
@@ -21,10 +23,13 @@ def lang_assign():
     return result
 
 def get_language_urls(index, language):
+    '''generate a list of the urls needed to scrape the mp3s for a given language'''
+
     urls_to_scrape = (index + 'browse_language.php?function=find&language=' + language)
     return urls_to_scrape
 
 def get_speaker_info(index, url):
+    '''generate a list of tuples which contain all the relevant information for the speakers of a given language'''
     
     def get_meta(p):
         meta = str(p).split('</a>')[-1].strip('</p>')
@@ -43,6 +48,8 @@ def get_speaker_info(index, url):
     return speakers
 
 def get_audio(index, speakers, language, directory):
+    '''download the audio files for a given language into the given directory'''
+
     audio = []
     for speaker in speakers[125:]:
         r = requests.get(speaker[0])
@@ -53,7 +60,7 @@ def get_audio(index, speakers, language, directory):
         source = index + source[-2] + '/' + source[-1]
         fname = speaker[1] + '_' + speaker[2] + '_' + source.split('/')[-1]
         audio.append((source, fname))
-    # os.makedirs(directory)
+    os.makedirs(directory)
     os.chdir(directory)
     for mp3 in audio:
         fname = mp3[1]

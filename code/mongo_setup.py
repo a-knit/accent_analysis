@@ -18,7 +18,7 @@ def get_formants(file_, partitions):
 
     data = pd.read_csv(file_, sep='   ')
     data = data.replace(to_replace='--undefined--', value=np.nan)
-    data = data.dropna(axis=0)
+    data = data.fillna(method='pad')
     data = data.astype(float)
 
     f_partitions = []

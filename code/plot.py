@@ -30,7 +30,7 @@ def plot_n_words(X, y, n, f_per_word):
     '''takes in X and y from the speaker model and plots the nth word with mean(F2) on the x axis and mean(F1) on the y axis'''
 
     X_list = [X[y=='afroasiatic'], X[y=='european'], X[y=='indo_iranian'], X[y=='sino_tibetan']]
-    color_list = ['orange', 'lavender', 'fuchsia', 'olive']
+    color_list = ['orange', 'indigo', 'fuchsia', 'olive']
 
     for i in xrange(4):
         X = X_list[i]

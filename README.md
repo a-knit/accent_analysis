@@ -16,7 +16,8 @@ code
 *    pulse_analysis.py  
 *    undersample.py  
 *    uniformity.py  
-*    cross_validate.py  
+*    cross_validate.py
+
 data  
 *    afroasiatic - formant and pulse files for accents in the Afroasiatic language family  
 *    european - formant and pulse files for the European language family  

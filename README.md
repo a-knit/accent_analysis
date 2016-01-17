@@ -46,11 +46,11 @@ This will build and test the model.
 
 **Step 1:** Run scrape_data.py
 
-This will scrape the mp3 files for analysis. We will save native language, birth country, and gender as well for use in further analysis. The data source is [The Speech Accent Archive][http://accent.gmu.edu/], a free accent database.
+This will scrape the mp3 files for analysis. We will save native language, birth country, and gender as well for use in further analysis. The data source is [The Speech Accent Archive](http://accent.gmu.edu/), a free accent database.
 
 **Step 2:** Download Praat
 
-Praat is a free linguistic software and is necessary for Accent Inspector to extract the data required to make predictions. We will be using the formant and pulse data that Praat derives from our audio files. Go to [Praat's webpage][http://www.fon.hum.uva.nl/praat/] to download.
+Praat is a free linguistic software and is necessary for Accent Inspector to extract the data required to make predictions. We will be using the formant and pulse data that Praat derives from our audio files. Go to [Praat's webpage](http://www.fon.hum.uva.nl/praat/) to download.
 
 **Step 3:** Run get_formants_pulses.praat
 

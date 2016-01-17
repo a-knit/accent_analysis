@@ -24,11 +24,3 @@ def partition(df):
 
 if __name__ == '__main__':
     pass
-    # df1 = get_intervals('afroasiatic', 'm_iraq_arabic12')
-    # df2 = get_intervals('european', 'f_brazil_portuguese37')
-    # df3 = get_intervals('indo_iranian', 'f_iran_farsi16')
-    # df4 = get_intervals('sino_tibetan', 'f_china_cantonese14')
-    # df1 = partition(df1)
-    # df2 = partition(df2)
-    # df3 = partition(df3)
-    # df4 = partition(df4)

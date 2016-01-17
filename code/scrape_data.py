@@ -1,11 +1,11 @@
 from bs4 import BeautifulSoup
 import requests
-from load_sound_data import load_sound
 import os
 
 
 def lang_assign():
-    '''create dictionary for looking up the family of every given native language'''
+    '''create dictionary for looking up the family of every given native language
+    languages here were chosen because they had the most recordings available, or for the purpose of adding to the minority classes'''
 
     euro = ['english', 'spanish', 'french', 'portuguese', 'russian', 'dutch', 'german', 'polish', 'italian', 'macedonian', 'swedish', 'romanian', 'serbian', 'bulgarian']
     indo = ['persian', 'hindi', 'urdu', 'bengali', 'nepali', 'kurdish', 'punjabi', 'pashto', 'gujarati', 'dari', 'sinhalese']
@@ -32,6 +32,8 @@ def get_speaker_info(index, url):
     '''generate a list of tuples which contain all the relevant information for the speakers of a given language'''
     
     def get_meta(p):
+        '''retrieve meta data on a given speaker (country of origin and gender)'''
+
         meta = str(p).split('</a>')[-1].strip('</p>')
         meta = meta.strip(',').split()
         org = meta[-1]
@@ -58,13 +60,18 @@ def get_audio(index, speakers, language, directory):
         source = soup.find('source')['src']
         source = source.split('/')
         source = index + source[-2] + '/' + source[-1]
+
+        # set the fname for each mp3 to be this format: gender_orgcountry_speakerid.mp3
         fname = speaker[1] + '_' + speaker[2] + '_' + source.split('/')[-1]
+        
         audio.append((source, fname))
+    
     os.makedirs(directory)
     os.chdir(directory)
     for mp3 in audio:
+        source = mp3[0]
         fname = mp3[1]
-        grabThis = 'wget -O ' + fname + ' ' + mp3[0]
+        grabThis = 'wget -O ' + fname + ' ' + source
         os.system(grabThis)
 
 if __name__ == '__main__':
@@ -73,12 +80,11 @@ if __name__ == '__main__':
 
     index = 'http://accent.gmu.edu/'
     
-    lang = 'spanish'
-    fam = lang_fam[lang]
-
-    directory = '/Users/Alex/accent_sound_files/' + fam + '/' + lang + '/'
+    for lang, fam in lang_fam.iteritems():
+        directory = '/Users/Alex/accent_sound_files/' + fam + '/' + lang + '/'
     
-    print 'working on - ', lang
-    urls_to_scrape = get_language_urls(index, lang)
-    speakers = get_speaker_info(index, urls_to_scrape)
-    get_audio(index, speakers, lang, directory)
+        print 'working on - ', lang
+
+        urls_to_scrape = get_language_urls(index, lang)
+        speakers = get_speaker_info(index, urls_to_scrape)
+        get_audio(index, speakers, lang, directory)

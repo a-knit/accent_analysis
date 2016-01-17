@@ -60,15 +60,12 @@ def prepare_post(filename, directory, i):
     return post
 
 
-if __name__ == '__main__':
-    client = MongoClient()
-    db = client['project']
-    collection = db['word_data']
+def post(collection, families):
+    '''post speaker info for every speaker in the given list of families to mongo database'''
 
-    families = ['afroasiatic', 'european', 'indo_iranian', 'sino_tibetan']
     i = 0
     for fam in families:
-        directory = './data/raw_praat/' + fam
+        directory = './data/' + fam
         for fn in os.listdir(directory):
             parts = fn.split('_')
             if parts[-1] == 'formant.txt':
@@ -77,4 +74,13 @@ if __name__ == '__main__':
                 collection.insert_one(post)
                 i += 1
         print fam, ' completed'
-    print i, ' posts added' # 1546 posts added
+    print i, ' posts added'
+
+
+if __name__ == '__main__':
+    client = MongoClient()
+    db = client['project']
+    collection = db['word_data']
+
+    families = ['afroasiatic', 'european', 'indo_iranian', 'sino_tibetan']
+    post(collection, families) # 1546 posts added

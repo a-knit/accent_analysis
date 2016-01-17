@@ -50,7 +50,7 @@ This will scrape the mp3 files for analysis. We will save native language, birth
 
 **Step 2:** Download Praat
 
-Praat is a free linguistic software and is necessary for Accent Inspector to extract the data required to make predictions. We will be using the formant and pulse data that Praat derives from our audio files. Go to [Praat's webpage](http://www.fon.hum.uva.nl/praat/) to download.
+Praat is a free linguistic software and is necessary for Accent Inspector to extract the data required to make predictions. We will be using the formant and pulse data that Praat derives from our audio files. Go to the [Praat homepage](http://www.fon.hum.uva.nl/praat/) to download.
 
 **Step 3:** Run get_formants_pulses.praat
 

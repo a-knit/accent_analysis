@@ -1,6 +1,10 @@
 # Accent Inspector
 
-Accent Inspector is your solution to automated accent detection. Accent Inspector can determine whether an individual is a native English speaker based on their speech. This is useful for identifying customer types and providing targeted customer service and marketing.  Accent Inspector classifies speakers using formant analysis and a Support Vector Machine.
+Accent Inspector is your solution to automated accent detection. Accent Inspector can determine whether an individual is a native English speaker based on their speech. All the you need is a recording of the person in question reading the following phrase:
+
+"Please call Stella, ask her to bring these things with her from the store."
+
+Accent Inspector classifies the person as either a native or a non-native English speaker using formant analysis and a Support Vector Machine. This is useful for identifying customer types and providing targeted customer service and marketing.
 
 ## Using the Model
 
@@ -28,12 +32,32 @@ data
 
 This setup utilizes the data files available in the data folder. If you prefer to run through the entire experiment, including scraping and extracting the data, please refer to the Full Setup. This will require you to install the free software, Praat.
 
-Step 1: Run mongo_setup.py
+**Step 1:** Run mongo_setup.py
 
 This will prepare the mongoDB database using the formant and pulse files in the data folder. The mongo_setup script is in the code folder.
 
-Step 2: Run basic_models.py
+**Step 2:** Run basic_models.py
 
-This will build and test the model.
+This will build and test the model. 
 
 ### Full Setup
+
+**Step 1:** Run scrape_data.py
+
+This will scrape the mp3 files for analysis. We will save native language, birth country, and gender as well for use in further analysis. The data source is http://accent.gmu.edu/, a free accent database.
+
+**Step 2:** Download Praat
+
+Praat is a free linguistic software and is necessary for Accent Inspector to extract the data required to make predictions. We will be using the formant and pulse data that Praat derives from our audio files. Go to http://www.fon.hum.uva.nl/praat/ to download.
+
+**Step 3:** Run get_formants_pulses.praat
+
+The file will need to be in the same folder as the audio files you have downloaded. It may be best to place a copy of the file in each directory where files are stored. You will also need to edit the input and output directories in the file, so that they match the desired input and output locations on your computer. Be sure that Praat is set as the default application for files of this type and open the file. You may need to click 'Run' in Praat, and Praat will begin scraping the formant and pulse data for the first 20 seconds of each audio file in .txt files.
+
+**Step 4:** Run mongo_setup.py
+
+This will prepare the mongoDB database using the formant and pulse files in the data folder. The mongo_setup script is in the code folder.
+
+**Step 5:** Run basic_models.py
+
+This will build and test the model.

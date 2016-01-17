@@ -9,23 +9,19 @@ This repo contains the code for recreating the inspector. The data folder contai
 ### Files Included
 
 code  
-    scrape_data.py  
-    get_formants_pulses.praat  
-    mongo_setup.py  
-    basic_models.py  
-    pulse_analysis.py  
-    undersample.py  
-    uniformity.py  
-    cross_validate.py  
+*    scrape_data.py  
+*    get_formants_pulses.praat  
+*    mongo_setup.py  
+*    basic_models.py  
+*    pulse_analysis.py  
+*    undersample.py  
+*    uniformity.py  
+*    cross_validate.py  
 data  
-    afroasiatic  
-        -- contains formant and pulse files for accents in the Afroasiatic language family  
-    european  
-        -- contains formant and pulse files for accents in the European language family  
-    indo_iranian  
-        -- contains formant and pulse files for accents in the Indo-Iranian language family  
-    sino_tibetan  
-        -- contains formant and pulse files for accents in the Sino-Tibetan language family  
+*    afroasiatic - formant and pulse files for accents in the Afroasiatic language family  
+*    european - formant and pulse files for the European language family  
+*    indo_iranian - formant and pulse files for the Indo-Iranian language family  
+*    sino_tibetan - formant and pulse files for the Sino-Tibetan language family  
 
 ### Quickstart Setup
 

@@ -1,16 +1,16 @@
 # Accent Inspector
 
-Accent Inspector is your solution to automated accent detection. Accent Inspector can determine whether an individual is a native English speaker based on their speech. All the you need is a recording of the person in question reading the following phrase:
+Accent Inspector is your solution to automated accent detection. Accent Inspector can determine whether an individual is a native English speaker based on their speech. All  you need is a recording of the person in question reading the following phrase:
 
 "Please call Stella, ask her to bring these things with her from the store."
 
-Accent Inspector classifies the person as either a native or a non-native English speaker using formant analysis and a Support Vector Machine. This is useful for identifying customer types and providing targeted customer service and marketing.
+Accent Inspector classifies the person as either a native or a non-native English speaker using formant analysis and a Support Vector Machine. Applications for this include identifying customer types and providing targeted customer service and marketing.
 
 ![](images/waveform_spectrogram.png)
 
 ## Using the Model
 
-This repo contains the code for recreating the inspector. The data folder contains .txt files precompiled for training the model. To use the data files and run the model, follow the Quickstart Setup instructions. To scrape and format the data yourself, follow the Full Setup instructions.
+This repo contains the code for recreating the inspector. The data folder contains .txt files precompiled for training the model. To use the data files and run the model, follow the Quickstart Setup instructions. To scrape and format the data yourself, follow the Full Setup instructions (this will require downloading a third-party software). All scripts are located in the code folder.
 
 ### Files Included
 
@@ -32,7 +32,7 @@ data
 
 ### Quickstart Setup
 
-This setup utilizes the data files available in the data folder. If you prefer to run through the entire experiment, including scraping and extracting the data, please refer to the Full Setup. This will require you to install the free software, Praat.
+This setup utilizes the data files available in the data folder. If you prefer to run through the entire experiment, including scraping and extracting the data, please refer to the Full Setup. This will require you to install Praat, a free software.
 
 **Step 1:** Run mongo_setup.py
 

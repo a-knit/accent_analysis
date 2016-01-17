@@ -6,6 +6,8 @@ Accent Inspector is your solution to automated accent detection. Accent Inspecto
 
 Accent Inspector classifies the person as either a native or a non-native English speaker using formant analysis and a Support Vector Machine. This is useful for identifying customer types and providing targeted customer service and marketing.
 
+![](images/waveform_spectrogram.png)
+
 ## Using the Model
 
 This repo contains the code for recreating the inspector. The data folder contains .txt files precompiled for training the model. To use the data files and run the model, follow the Quickstart Setup instructions. To scrape and format the data yourself, follow the Full Setup instructions.
@@ -44,11 +46,11 @@ This will build and test the model.
 
 **Step 1:** Run scrape_data.py
 
-This will scrape the mp3 files for analysis. We will save native language, birth country, and gender as well for use in further analysis. The data source is http://accent.gmu.edu/, a free accent database.
+This will scrape the mp3 files for analysis. We will save native language, birth country, and gender as well for use in further analysis. The data source is [The Speech Accent Archive]http://accent.gmu.edu/, a free accent database.
 
 **Step 2:** Download Praat
 
-Praat is a free linguistic software and is necessary for Accent Inspector to extract the data required to make predictions. We will be using the formant and pulse data that Praat derives from our audio files. Go to http://www.fon.hum.uva.nl/praat/ to download.
+Praat is a free linguistic software and is necessary for Accent Inspector to extract the data required to make predictions. We will be using the formant and pulse data that Praat derives from our audio files. Go to [Praat's webpage]http://www.fon.hum.uva.nl/praat/ to download.
 
 **Step 3:** Run get_formants_pulses.praat
 

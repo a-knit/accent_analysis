@@ -25,6 +25,7 @@ def cross_val(model, X, y, sp=np.array([]), cv=5, word_=False, svm=False, samp_m
         masks = create_folds(obs, cv)
 
     scores = []
+    i = 0
     for mask in masks:
         if word_:
             sp_train = speakers[mask]
@@ -49,7 +50,8 @@ def cross_val(model, X, y, sp=np.array([]), cv=5, word_=False, svm=False, samp_m
         else:
             round_scores = calc_metrics(y_pred, y_test)
         scores.append(round_scores)
-        print 'fold completed'
+        i += 1
+        print '%d%% completed' % (i*100/float(cv))
 
     return np.mean(scores, axis=0)
     # scores format: [accuracy, euro F1, other F1]

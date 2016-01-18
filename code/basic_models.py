@@ -32,7 +32,7 @@ def prep_data(coll, word_=False, scaling=False):
                 continue
         elif family=='sino_tibetan' or family=='afroasiatic':
             family = 'other'
-        else family=='indo_iranian':
+        else:
             continue
 
         word_data = entry['word_formants']
@@ -94,7 +94,7 @@ def ran_forest(X, y, sp, word_=False, samp_method=None):
 
 def SVM(X, y, sp, word_=False, samp_method=None):
     svm = SVC(class_weight='balanced')
-    return cross_val(svm, X, y, sp, word_=word_, svm=True, samp_method=samp_method)
+    return cross_val(svm, X, y, sp, cv=5, word_=word_, svm=True, samp_method=samp_method)
 
 def KNN(X, y, sp, word_=False):
     knn = KNeighborsClassifier(n_neighbors=5)
@@ -128,27 +128,7 @@ if __name__ == '__main__':
     sp = []
     X, y, sp = prep_data(collection, word_=False, scaling=False)
     print 'words prepped'
-    # rf = ran_forest(X, y, sp, samp_method='smote')
-    # print 'random forest complete'
-    # svm = SVM(X, y, sp, samp_method='smote')
-    # print 'svm complete'
-    # gb = GB(X, y , sp, samp_method='smote')
-    # print 'gradient boost complete'
-    # print 'rf by word scores:', rf
-    # print 'svm by word scores:', svm
-    # print 'gb by word scores:', gb
-
-    # rf = ran_forest(X, y, sp, word=False, samp_method='smote')
-    # print 'random forest complete'
-    # svm = SVM(X, y, sp, word=False, samp_method=None)
-    # print 'svm complete'
-    # gb = GB(X, y , sp, word=False, samp_method=None)
-    # print 'rf by speaker scores:', rf
-    # print 'svm by speaker scores:', svm
-    # print 'gb by speaker scores:', gb
-
-    # for i in xrange(2):
-    #     plot_nth_word(X, y, (i+1), 16)
-
-    for i in xrange(6):
-        plot_n_words(X, y, (i+1), 16)
+    svm = SVM(X, y, sp, word_=False, samp_method=None)
+    print 'Accuracy:', svm[0]
+    print 'F1 Score (native speakers):', svm[1]
+    print 'F1 Score (non-native speakers):', svm[2]

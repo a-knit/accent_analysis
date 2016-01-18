@@ -36,11 +36,11 @@ This setup utilizes the data files available in the data folder. If you prefer t
 
 **Step 1:** Run mongo_setup.py
 
-This will prepare the mongoDB database using the formant and pulse files in the data folder. The mongo_setup script is in the code folder.
+This will prepare the mongoDB database using the formant and pulse files in the data folder. The database saves all available information on the speakers and saves a list of all words with additional information on each word. Many of this information is not used in the final model but could be useful for additional research.
 
 **Step 2:** Run basic_models.py
 
-This will build and test the model. 
+This will build and test the model. The model outputs accuracy and F1 scores.
 
 ### Full Setup
 
@@ -58,8 +58,8 @@ The file will need to be in the same folder as the audio files you have download
 
 **Step 4:** Run mongo_setup.py
 
-This will prepare the mongoDB database using the formant and pulse files in the data folder. The mongo_setup script is in the code folder.
+This will prepare the mongoDB database using the formant and pulse files in the data folder. The database saves all available information on the speakers and saves a list of all words with additional information on each word. Many of this information is not used in the final model but could be useful for additional research.
 
 **Step 5:** Run basic_models.py
 
-This will build and test the model.
+This will build and test the model. The model outputs accuracy and F1 scores.

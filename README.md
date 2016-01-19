@@ -6,7 +6,38 @@ Accent Inspector is your solution to automated accent detection. Accent Inspecto
 
 Accent Inspector classifies the person as either a native or a non-native English speaker using formant analysis and a Support Vector Machine. Applications for this include identifying customer types and providing targeted customer service and marketing.
 
+## Understanding the Model
+
+The objective of this project was to answer the following question:
+
+Can an algorithm detect the accent of a speaker?
+
+The human ear easily notices when an unfamiliar accent is present. Accent Detector attempts to use the same differences in sound that the human ear focuses on and deliver an accurate label for whether a given speaker has an accent.
+
+### The Data
+
+A database of over 1500 audio files from [The Speech Accent Archive](http://accent.gmu.edu/) was used to train the model. These files contain recordings of speakers with 39 different native languages, and all of them are reading the same transcript. This gives the dataset the consistency needed to conservatively test the hypothesis.
+
+The model relies on analysis of formant data to make predictions. Formants are frequencies in soundwaves from speech that are amplified due to the size and shapes of certain cavaties in the speakers vocal tract. The first formant comes from the back of the throat, the second from the front of the mouth, and so on. A free linguistics software named [Praat](http://www.fon.hum.uva.nl/praat/) was used to extract the formant data.
+
 ![](images/waveform_spectrogram.png)
+Above is a waveform and spectrogram from Praat
+
+### The Model
+
+Accent detector uses a Support Vector Machine to make predictions based on formant data. The analysis uses first 4 formants of the first 12 words from each audio file. These allow the model to classify the speaker as either a native English speaker, or a non-native English, non-Indo-European speaker. Several tests sets have been run through the model and the accuracy is consitently above 85%, while the F1 score for the native English speaking class is almost 90%.
+
+### Insights
+
+These are reasonably auspicious results, considering the subtleties in the formant differences across accents and the amount of data used. The model did not perform well on more difficult problems, but these are likely solvable with further data and research.
+
+The model did not perform well when other Indo-European languages were included in the training and test sets. This is because these languages are too similar to English and much harder to distinguish. This would be solved with much more data, especially from the other languages.
+
+The model did not classify between more specific accent groups with high accuracy. Again, the amount of data is the prevailing issue. Four language families were used and the model was only able to select with about 50% accuracy. Most of the observations were in the European family, the maximum observations in any one of the other groups was below 200. This just was not enough to accurately make decisions with the SVM. The model performed much better when the non-European families were grouped together.
+
+The model also required that each subject read the same transcript as the speakers in the database. This would be resolved with more accurate labeling of the words from each speaker as well as more data. Each audio file was divided into words (or more specifically, the vowel sounds for each word), using pulse analysis from Praat. This worked fairly well, but would sometimes pick up sounds that were not words as well as lump two words together. This is evidenced by the fact that the model performed best using only the first 12 words when there were actually 69 words in the transcript. The 13th word in each recording was too varied to be useful. This could be solved with a labeling algorithm that more accurately identifies each word.
+
+Despite the above setbacks, the results from classifying native English against all non-European speakers proves the feasibility of solving more difficult problems.
 
 ## Using the Model
 

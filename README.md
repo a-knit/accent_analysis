@@ -21,7 +21,7 @@ A database of over 1500 audio files from [The Speech Accent Archive](http://acce
 The model relies on analysis of formant data to make predictions. Formants are frequencies in soundwaves from speech that are amplified due to the size and shapes of certain cavaties in the speakers vocal tract. The first formant comes from the back of the throat, the second from the front of the mouth, and so on. A free linguistics software named [Praat](http://www.fon.hum.uva.nl/praat/) was used to extract the formant data.
 
 ![](images/waveform_spectrogram.png)
-Above is a waveform and spectrogram from Praat
+Waveform and spectrogram from Praat with labeled formants (in red) and pulses (in blue)
 
 ### The Model
 
@@ -29,11 +29,14 @@ Accent detector uses a Support Vector Machine to make predictions based on forma
 
 ### Insights
 
-These are reasonably auspicious results, considering the subtleties in the formant differences across accents and the amount of data used. The model did not perform well on more difficult problems, but these are likely solvable with further data and research.
+These are reasonably auspicious results, considering the subtleties in the formant differences across accents and the amount of data used. Accent Analyzer could be used in real-time if integrated with Praat or another software that can extract the formant data from audio feed. The model did not perform well on more difficult problems, but these are likely solvable with further data and research.
 
 The model did not perform well when other Indo-European languages were included in the training and test sets. This is because these languages are too similar to English and much harder to distinguish. This would be solved with much more data, especially from the other languages.
 
-The model did not classify between more specific accent groups with high accuracy. Again, the amount of data is the prevailing issue. Four language families were used and the model was only able to select with about 50% accuracy. Most of the observations were in the European family, the maximum observations in any one of the other groups was below 200. This just was not enough to accurately make decisions with the SVM. The model performed much better when the non-European families were grouped together.
+The model did not classify between more specific accent groups with high accuracy. Again, the amount of data is the prevailing issue. Four language families were used and the model was only able to select an F1 score of about 57%. Most of the observations were in the European family, the maximum observations in any one of the other groups was below 200. This just was not enough to accurately make decisions with the SVM. The model performed much better when the non-European families were grouped together.
+
+![](images/metrics.png)
+F1 Score drops off significantly when the model attempts to classify between more than two groups
 
 The model also required that each subject read the same transcript as the speakers in the database. This would be resolved with more accurate labeling of the words from each speaker as well as more data. Each audio file was divided into words (or more specifically, the vowel sounds for each word), using pulse analysis from Praat. This worked fairly well, but would sometimes pick up sounds that were not words as well as lump two words together. This is evidenced by the fact that the model performed best using only the first 12 words when there were actually 69 words in the transcript. The 13th word in each recording was too varied to be useful. This could be solved with a labeling algorithm that more accurately identifies each word.
 

@@ -1,6 +1,6 @@
 # Accent Inspector
 
-Accent Inspector is your solution to automated accent detection. Accent Inspector can determine whether an individual is a native English speaker based on their speech. All  you need is a recording of the person in question reading the following phrase:
+Accent Inspector is your solution to automated accent detection. Accent Inspector can determine whether an individual is a native English speaker based on their speech. All you need is a recording of the person in question reading the following phrase:
 
 "Please call Stella, ask her to bring these things with her from the store."
 
@@ -18,29 +18,27 @@ The human ear easily notices when an unfamiliar accent is present. Accent Detect
 
 A database of over 1500 audio files from [The Speech Accent Archive](http://accent.gmu.edu/) was used to train the model. These files contain recordings of speakers with 39 different native languages, and all of them are reading the same transcript. This gives the dataset the consistency needed to conservatively test the hypothesis.
 
-The model relies on analysis of formant data to make predictions. Formants are frequencies in soundwaves from speech that are amplified due to the size and shapes of certain cavaties in the speakers vocal tract. The first formant comes from the back of the throat, the second from the front of the mouth, and so on. A free linguistics software named [Praat](http://www.fon.hum.uva.nl/praat/) was used to extract the formant data.
+The model relies on analysis of formant data to make predictions. Formants are frequencies in sound waves from speech that are amplified due to the size and shapes of certain cavities in the speakers vocal tract. The first formant comes from the back of the throat, the second from the front of the mouth, and so on. A free linguistics software named [Praat](http://www.fon.hum.uva.nl/praat/) was used to extract the formant data.
 
 ![](images/waveform_spectrogram.png)
 Waveform and spectrogram from Praat with labeled formants (in red) and pulses (in blue)
 
 ### The Model
 
-Accent detector uses a Support Vector Machine to make predictions based on formant data. The analysis uses first 4 formants of the first 12 words from each audio file. These allow the model to classify the speaker as either a native English speaker, or a non-native English, non-Indo-European speaker. Several tests sets have been run through the model and the accuracy is consitently above 85%, while the F1 score for the native English speaking class is almost 90%.
+Accent detector uses a Support Vector Machine to make predictions based on formant data. The analysis uses first 4 formants of the first 12 words from each audio file. These allow the model to classify the speaker as either a native English speaker, or a non-native English, non-Indo-European speaker. Several tests sets have been run through the model and the accuracy is consitantly above 85%, while the F1 score for the native English speaking class is almost 90%.
 
 ### Insights
 
-These are reasonably auspicious results, considering the subtleties in the formant differences across accents and the amount of data used. Accent Analyzer could be used in real-time if integrated with Praat or another software that can extract the formant data from audio feed. The model did not perform well on more difficult problems, but these are likely solvable with further data and research.
+The results are reasonably auspicious, considering the subtleties in the formant differences across accents and the amount of data used. Accent Analyzer could be used in real-time if integrated with Praat or another software that can extract the formant data from audio feed. The model did not perform well on more difficult problems, but these are likely solvable with further data and research.
 
-The model did not perform well when other Indo-European languages were included in the training and test sets. This is because these languages are too similar to English and much harder to distinguish. This would be solved with much more data, especially from the other languages.
-
-The model did not classify between more specific accent groups with high accuracy. Again, the amount of data is the prevailing issue. Four language families were used and the model was only able to select an F1 score of about 57%. Most of the observations were in the European family, the maximum observations in any one of the other groups was below 200. This just was not enough to accurately make decisions with the SVM. The model performed much better when the non-European families were grouped together.
+A much larger dataset would allow the model both to classify between more specific accent groups and to classify between groups that are similar to each other. The model was attempted with four language families and was only able to select with an F1 score of about 57%. Most of the observations were in the European family, the maximum observations in any one of the other groups was below 200. This just was not enough to accurately make decisions with the SVM. More data would give the model the chance to pick up on the subtle differences between each of these accent families.
 
 ![](images/metrics.png)
 F1 Score drops off significantly when the model attempts to classify between more than two groups
 
-The model also required that each subject read the same transcript as the speakers in the database. This would be resolved with more accurate labeling of the words from each speaker as well as more data. Each audio file was divided into words (or more specifically, the vowel sounds for each word), using pulse analysis from Praat. This worked fairly well, but would sometimes pick up sounds that were not words as well as lump two words together. This is evidenced by the fact that the model performed best using only the first 12 words when there were actually 69 words in the transcript. The 13th word in each recording was too varied to be useful. This could be solved with a labeling algorithm that more accurately identifies each word.
+The model also required that each subject read the same transcript as the speakers in the database. This would be resolved with more accurate labeling of the words from each speaker as well as more data. Each audio file was divided into words (or more specifically, the vowel sounds for each word), using pulse analysis from Praat. This worked fairly well, but would sometimes pick up sounds that were not words as well as lump two words together. This is evidenced by the fact that the model performed best using only the first 12 words when there were actually 69 words in the transcript. The 13th word in each recording was too varied to be useful. The model could be adapted to determine accents based off any words if more words were used and a labeled accurately using an additional algorithm.
 
-Despite the above setbacks, the results from classifying native English against all non-European speakers proves the feasibility of solving more difficult problems.
+Despite the above setbacks, the results from classifying native English against all non-European speakers proves the feasibility of expanding upon the model to work under more complicated circumstances.
 
 ## Using the Model
 
@@ -48,21 +46,21 @@ This repo contains the code for recreating the inspector. The data folder contai
 
 ### Files Included
 
-code/  
-*    scrape_data.py - scrapes the mp3 files from the online archive 
-*    get_formants_pulses.praat - extracts formant and pulse info from mp3s using Praat
-*    mongo_setup.py - populates a mongoDB database with the data
-*    basic_models.py - runs the model and returns results
-*    pulse_analysis.py - finds formant data for each word using the pulse data to partition (used by mongo_setup.py)
-*    undersample.py - contains code for undersampling and smoting, both are additional options in the model (used by basic_models.py)
-*    uniformity.py - scales the formant dat so that the number of datapoints is uniform across all words (used by basic_models.py)
-*    cross_validate.py - divides data and performs k-fold cross validation to return the average of each metric across each fold (used by basic_models.py)
+code/..  
+*    **scrape_data.py** - scrapes the mp3 files from the online archive 
+*    **get_formants_pulses.praat** - extracts formant and pulse info from mp3s using Praat
+*    **mongo_setup.py** - populates a mongoDB database with the data
+*    **basic_models.py** - runs the model and returns results
+*    **pulse_analysis.py** - finds formant data for each word using the pulse data to partition (used by mongo_setup.py)
+*    **undersample.py** - contains code for undersampling and smoting, both are additional options in the model (used by basic_models.py)
+*    **uniformity.py** - scales the formant dat so that the number of datapoints is uniform across all words (used by basic_models.py)
+*    **cross_validate.py** - divides data and performs k-fold cross validation to return the average of each metric across each fold (used by basic_models.py)
 
-data/  
-*    afroasiatic - formant and pulse files for accents in the Afroasiatic language family  
-*    european - formant and pulse files for the European language family  
-*    indo_iranian - formant and pulse files for the Indo-Iranian language family  
-*    sino_tibetan - formant and pulse files for the Sino-Tibetan language family  
+data/..  
+*    **afroasiatic** - formant and pulse files for accents in the Afroasiatic language family  
+*    **european** - formant and pulse files for the European language family  
+*    **indo_iranian** - formant and pulse files for the Indo-Iranian language family  
+*    **sino_tibetan** - formant and pulse files for the Sino-Tibetan language family  
 
 ### Quickstart Setup
 

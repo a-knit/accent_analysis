@@ -48,17 +48,17 @@ This repo contains the code for recreating the inspector. The data folder contai
 
 ### Files Included
 
-code  
-*    scrape_data.py  
-*    get_formants_pulses.praat  
-*    mongo_setup.py  
-*    basic_models.py  
-*    pulse_analysis.py  
-*    undersample.py  
-*    uniformity.py  
-*    cross_validate.py
+code/  
+*    scrape_data.py - scrapes the mp3 files from the online archive 
+*    get_formants_pulses.praat - extracts formant and pulse info from mp3s using Praat
+*    mongo_setup.py - populates a mongoDB database with the data
+*    basic_models.py - runs the model and returns results
+*    pulse_analysis.py - finds formant data for each word using the pulse data to partition (used by mongo_setup.py)
+*    undersample.py - contains code for undersampling and smoting, both are additional options in the model (used by basic_models.py)
+*    uniformity.py - scales the formant dat so that the number of datapoints is uniform across all words (used by basic_models.py)
+*    cross_validate.py - divides data and performs k-fold cross validation to return the average of each metric across each fold (used by basic_models.py)
 
-data  
+data/  
 *    afroasiatic - formant and pulse files for accents in the Afroasiatic language family  
 *    european - formant and pulse files for the European language family  
 *    indo_iranian - formant and pulse files for the Indo-Iranian language family  
